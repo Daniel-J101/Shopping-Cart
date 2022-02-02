@@ -46,6 +46,8 @@ public class Cart {
      */
 
     public void remove(String name) {
+        if(items.isEmpty())
+            throw new IllegalStateException("items cannot be empty");
         for (int i = 0; i < items.size(); i++) {
             if(items.get(i).getName().equals(name))
                 items.remove(i);
@@ -64,6 +66,9 @@ public class Cart {
      */
 
     public String checkout() {
+        if(items.isEmpty())
+            throw new IllegalStateException("items cannot be empty");
+
         double subtotal = 0;
 
         for (Item item : items) {
@@ -71,7 +76,11 @@ public class Cart {
         }
         double tax = subtotal*.13;
 
-        return "\tRECEIPT\n\n" + "\tSubtotal: $" + subtotal + "\n" + "\tTax: $" + tax + "\n" + "\tTotal: $" + (subtotal + tax) + "\n";
+        return "\tRECEIPT\n\n" + "\tSubtotal: $" + String.format("%.2f", subtotal) + "\n" + "\tTax: $" + String.format("%.2f", tax) + "\n" + "\tTotal: $" + String.format("%.2f", (subtotal + tax)) + "\n";
+    }
+
+    public boolean isEmpty() {
+        return items.isEmpty();
     }
 
     public String toString() {
