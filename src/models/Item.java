@@ -39,4 +39,11 @@ public class Item {
     public String toString() {
         return name + ": $" + price + " ";
     }
+
+    public boolean equals(Object obj) {
+        if(obj == null || !(obj instanceof Item))
+            return false;
+        Item check = (Item) obj;
+        return check.name.equals(name) && check.price == this.price;
+    }
 }
